@@ -8,5 +8,5 @@ export function proxyLinkGenerator({
     password?: string
     type: string
 }){
-    return `${type}://${!!username && !!password ? [username, password].join(":").concat("@") : ""}${ip}:${port}#${label ?? `${ip}:${port}`}`
+    return `${type}://${!!username && !!password ? `${username}:${password}@` : ""}${ip}:${port}#${label ?? `${ip}:${port}`}`
 }

@@ -10,7 +10,7 @@ async function proxyDb(){
 
     do{
         const bodyParams = new URLSearchParams()
-        bodyParams.append("protocol", "http")
+        // bodyParams.append("protocol", "http")
         bodyParams.append("protocol", "https")
         bodyParams.append("protocol", "socks4")
         bodyParams.append("protocol", "socks5")
@@ -52,11 +52,7 @@ async function proxyDb(){
         }
     } while(currentPageSize == defaultPageSize)
 
-    const template = proxyList.map(proxy => proxyLinkGenerator({
-        ip: proxy.ip,
-        port: proxy.port,
-        type: proxy.type
-    })).join("\n")
+    const template = proxyList.map(proxyLinkGenerator).join("\n")
 
     try{
         console.log("Writing to file")
