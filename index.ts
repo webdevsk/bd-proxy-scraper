@@ -8,17 +8,22 @@ async function proxyDb(){
     let currentPageSize = 15
     let offset = 0
 
+    const bodyParams = new URLSearchParams()
+    // bodyParams.append("protocol", "http")
+    bodyParams.append("protocol", "https")
+    bodyParams.append("protocol", "socks4")
+    bodyParams.append("protocol", "socks5")
+    bodyParams.append("country", "BD")
+    
     do{
-        const bodyParams = new URLSearchParams()
-        // bodyParams.append("protocol", "http")
-        bodyParams.append("protocol", "https")
-        bodyParams.append("protocol", "socks4")
-        bodyParams.append("protocol", "socks5")
-        bodyParams.append("country", "BD")
-        bodyParams.append("offset", offset.toString())
+        bodyParams.set("offset", offset.toString())
+        // Skip sleeping the first time
+        const sleepTime = offset === 0 ? 0 : Math.floor(Math.random() * (3000 - 1000 + 1)) + 1000
+        console.log("Sleeping for " + sleepTime + "ms")
+        await Bun.sleep(sleepTime)
         
         try {
-            const rawResponse = await fetch("https://proxydb.net/list", {
+            const response = await fetch("https://proxydb.net/list", {
                 "headers": {
                     "accept": "application/json",
                     "accept-language": "en-US,en;q=0.9,bn;q=0.8",
@@ -38,8 +43,7 @@ async function proxyDb(){
                 "mode": "cors",
                 "credentials": "omit"
             })
-            const response = await rawResponse.json()
-            const {proxies, total_count} = apiSchema.parse(response)
+            const {proxies, total_count} = apiSchema.parse(await response.json())
             console.log(`Fetched ${proxyList.length + proxies.length} proxies out of ${total_count} proxies`)
 
             proxies.map(proxy => proxyList.push(proxy))
