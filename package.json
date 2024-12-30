@@ -2,6 +2,10 @@
   "name": "bd-proxy-scraper",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "start": "bun index.ts",
+    "pre": "bunx @puppeteer/browsers install chrome"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
@@ -9,6 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "puppeteer": "^23.11.1",
     "zod": "^3.24.1"
   }
 }
