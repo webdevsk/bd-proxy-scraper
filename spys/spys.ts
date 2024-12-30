@@ -29,8 +29,8 @@ export async function spys(){
         console.log("Parsing proxies")
         const proxies = await page.$$eval('tr.spy1xx, tr.spy1x', (elements) => 
             elements.reduce((accumulator: typeof proxyList, currentElement) => {
-                const type= currentElement.querySelector<HTMLTableColElement>('td:nth-child(2)')?.innerText.split(" ")[0]
-                if (!type || type === 'HTTP') return accumulator
+                const type= currentElement.querySelector<HTMLTableColElement>('td:nth-child(2)')?.innerText.split(" ")[0].toLocaleLowerCase()
+                if (!type || type === 'http') return accumulator
 
                 const ipPort = currentElement.querySelector<HTMLFontElement>('td:first-child font.spy14')?.innerText
                 if (!ipPort) return accumulator
