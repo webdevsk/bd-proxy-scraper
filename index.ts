@@ -13,7 +13,7 @@ export type Proxy = {
 }
 
 export const proxyList: Proxy[] = []
-export const devMode = false
+export const devMode = !!process.env.DEV_MODE && process.env.DEV_MODE === "true"
 
 export function logMsg(msg: String){
     console.log("=====================================")
@@ -24,11 +24,17 @@ export function logMsg(msg: String){
 async function init(){
     logMsg("Fetching from proxydb")
     await proxyDb()
+    
     logMsg("Fetching from spys.one")
     await spys()
+    
+    /////////////////////////////////////////////////
+    // Add new scraper calls here
+
     logMsg("Fetching from local file")
     fetchCustomList()
-
+    
+    // Skip writing to files in devMode for testing purposes
     if (devMode) return
     
     console.log("Total proxies length: " + proxyList.length)
