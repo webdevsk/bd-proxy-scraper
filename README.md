@@ -1,15 +1,31 @@
-# bd-proxy-scraper
+# Bangladeshi Proxy Scraper
 
-To install dependencies:
+A scraper built on TypeScript and Bun. Scrapes from the following sources:
+
+|Source|Method|
+|---|---|
+|proxydb.net|api|
+|spys.one|puppeteer|
+
+### To get started:
+
+#### 1. Clone this repo
+
+#### 2. Install Chrome for puppeteer
 
 ```bash
-bun install
+bunx @puppeteer/browsers install chrome
 ```
 
-To run:
+#### 3. Install dependencies:
 
 ```bash
-bun run index.ts
+bun i
 ```
 
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+#### 4. Run scraper
+
+```bash
+bun start
+```
+

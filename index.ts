@@ -37,7 +37,7 @@ async function init(){
     try{
         logMsg("Writing to file")
         await Bun.write("./output/mixed.txt", template)
-        console.log("Done writing to file.")
+        console.log("Done writing to file: 'output/mixed.txt'")
     } catch (error){
         console.error("Failed to write to file")
         console.error(error)

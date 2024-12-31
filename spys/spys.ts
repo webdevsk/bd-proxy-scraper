@@ -4,6 +4,7 @@ import { proxyList } from './../index'
 export async function spys(){
     console.log("Launching Browser")
     const browser = await puppeteer.launch({
+        // Headless doesn't work for this site as they may have detectors or something
         headless: false
     })
 
