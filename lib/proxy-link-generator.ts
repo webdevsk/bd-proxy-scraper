@@ -1,12 +1,7 @@
+import type { Proxy } from ".."
+
 export function proxyLinkGenerator({
     ip, port, label, username, password, type
-}: {
-    ip: string
-    port: number
-    label?: string
-    username?: string
-    password?: string
-    type: string
-}){
+}: Proxy){
     return `${type}://${!!username && !!password ? `${username}:${password}@` : ""}${ip}:${port}#${label ?? `${ip}:${port}`}`
 }

@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer"
-import { proxyList } from './../index'
+import { proxyList, type Proxy } from './../index'
 
 export async function spys(){
     console.log("Launching Browser")
@@ -29,7 +29,7 @@ export async function spys(){
 
         console.log("Parsing proxies")
         const proxies = await page.$$eval('tr.spy1xx, tr.spy1x', (elements) => 
-            elements.reduce((accumulator: typeof proxyList, currentElement) => {
+            elements.reduce((accumulator: Proxy[], currentElement) => {
                 const type= currentElement.querySelector<HTMLTableColElement>('td:nth-child(2)')?.innerText.split(" ")[0].toLocaleLowerCase()
                 if (!type || type === 'http') return accumulator
 
@@ -42,9 +42,7 @@ export async function spys(){
             }, [])
         )
         console.log(`Fetched ${proxies.length} proxies`)
-        proxies.forEach(proxy => {
-            proxyList.push(proxy)
-        })
+        proxyList.push(...proxies)
         
     } catch (error) {
         console.error(error)

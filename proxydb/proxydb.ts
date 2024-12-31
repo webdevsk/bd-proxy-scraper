@@ -44,7 +44,8 @@ export async function proxyDb(){
             const {proxies, total_count} = apiSchema.parse(await response.json())
             console.log(`Fetched ${proxyList.length + proxies.length} proxies out of ${total_count} proxies`)
 
-            proxies.map(proxy => proxyList.push(proxy))
+            proxyList.push(...proxies)
+            
             currentPageSize = proxies.length
             offset += defaultPageSize
         
