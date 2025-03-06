@@ -37,7 +37,7 @@ export async function spys(){
                 if (!ipPort) return accumulator
 
                 const [ip, port] = ipPort.split(':')
-                accumulator.push({type, ip, port: parseInt(port)})
+                accumulator.push({type, ip, port})
                 return accumulator
             }, [])
         )

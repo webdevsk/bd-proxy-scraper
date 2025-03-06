@@ -5,7 +5,7 @@ import { spys } from "./spys/spys"
 
 export type Proxy = {
     ip: string,
-    port: number,
+    port: string,
     type: string,
     username?: string,
     password?: string,
@@ -48,6 +48,7 @@ async function init(){
     const proxiesByType = Object.groupBy(uniqeProxies, proxy => proxy.type)
     proxiesByType["mixed"] = uniqeProxies
 
+    logMsg(`Writing to files`)
     // Looping through each type and writing to file
     Object.entries(proxiesByType).forEach(async ([type, proxies]) => {
         if (!proxies || !proxies.length) return
@@ -55,7 +56,6 @@ async function init(){
         // Generating proxy links
         const template = proxies.map(proxyLinkGenerator).join("\n")
 
-        logMsg(`Writing to files`)
 
         try{
             await Bun.write(`./output/${type}.txt`, template)
